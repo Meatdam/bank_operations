@@ -1,15 +1,16 @@
 import pytest
-from src.utils import get_data_for_sort, get_date_format
+from src.utils import *
 
 
 def test_get_data_for_sort():
-    assert get_data_for_sort({"date": "2019-07-13T18:51:29.313309"}) == "2019-07-13T18:51:29.313309"
-
-
-def test_get_date_format():
-    assert get_date_format()
+    assert format_date_operations([{"date": "2019-08-26T10:50:58.294041"}]) == ['26.08.2019']
+    assert sort_list_operations([{"date": "2019-08-26T10:50:58.294041"}]) == [{"date": "2019-08-26T10:50:58.294041"}]
+    assert get_format_check([{"to": "Счет 64686473678894779589"}]) == ['**7958']
+    assert (get_format_card([{"description": "Перевод организации", "from": "Maestro 1596837868705199"}]) ==
+            ['Maestro 1596 83** **** 5199'])
 
 
 def test_load_json_operations_error():
     with pytest.raises(TypeError):
-        get_data_for_sort('привет')
+        load_json_operations('привет')
+        format_date_operations("2000.22.14")
